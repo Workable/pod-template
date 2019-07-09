@@ -69,23 +69,7 @@ module Pod
 
     def run
       @message_bank.welcome_message
-
-      platform = self.ask_with_answers("What platform do you want to use?", ["iOS", "macOS"]).to_sym
-
-      case platform
-        when :macos
-          ConfigureMacOSSwift.perform(configurator: self)
-        when :ios
-          framework = self.ask_with_answers("What language do you want to use?", ["Swift", "ObjC"]).to_sym
-          case framework
-            when :swift
-              ConfigureSwift.perform(configurator: self)
-
-            when :objc
-              ConfigureIOS.perform(configurator: self)
-          end
-      end
-
+      ConfigureSwift.perform(configurator: self)
       replace_variables_in_files
       clean_template_files
       rename_template_files
@@ -93,7 +77,7 @@ module Pod
       customise_prefix
       rename_classes_folder
       ensure_carthage_compatibility
-      reinitialize_git_repo
+      delete_git_repo
       run_pod_install
 
       @message_bank.farewell_message
@@ -179,6 +163,10 @@ module Pod
 
     def rename_classes_folder
       FileUtils.mv "Pod", @pod_name
+    end
+
+    def delete_git_repo
+      `rm -rf .git`
     end
 
     def reinitialize_git_repo
