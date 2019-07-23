@@ -76,18 +76,14 @@ module Pod
       add_pods_to_podfile
       customise_prefix
       rename_classes_folder
-      ensure_carthage_compatibility
       delete_git_repo
+      delete_meta_files
       run_pod_install
 
       @message_bank.farewell_message
     end
 
     #----------------------------------------#
-
-    def ensure_carthage_compatibility
-      FileUtils.ln_s('Example/Pods/Pods.xcodeproj', '_Pods.xcodeproj')
-    end
 
     def run_pod_install
       puts "\nRunning " + "pod install".magenta + " on your new library."
@@ -96,9 +92,6 @@ module Pod
       Dir.chdir("Example") do
         system "pod install"
       end
-
-      `git add Example/#{pod_name}.xcodeproj/project.pbxproj`
-      `git commit -m "Initial commit"`
     end
 
     def clean_template_files
@@ -149,10 +142,19 @@ module Pod
 
     def set_test_framework(test_type, extension, folder)
       content_path = "setup/test_examples/" + test_type + "." + extension
-      tests_path = "templates/" + folder + "/Example/Tests/Tests." + extension
+      tests_path = "Pod/Tests/Test\ Sources/Tests." + extension
       tests = File.read tests_path
       tests.gsub!("${TEST_EXAMPLE}", File.read(content_path) )
       File.open(tests_path, "w") { |file| file.puts tests }
+
+
+      path_to_example_tests = "templates/" + folder + "/Example/Tests/Tests." + extension
+      File.delete(path_to_example_tests) if File.exist?(path_to_example_tests)
+
+      out_file = File.new(path_to_example_tests, "w")
+      out_file.puts("")
+      out_file.close
+
     end
 
     def rename_template_files
@@ -167,6 +169,11 @@ module Pod
 
     def delete_git_repo
       `rm -rf .git`
+    end
+
+    def delete_meta_files
+      `rm README.md`
+      `rm LICENSE`
     end
 
     def reinitialize_git_repo
