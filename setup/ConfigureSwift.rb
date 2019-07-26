@@ -14,7 +14,7 @@ module Pod
     def remove_line_from_podspec!(matches)
       lines = File.readlines("NAME.podspec")
       File.open(filename, "w") do |f|
-        lines.each { |line| f.puts(line) unless line.include? matches) }
+        lines.each { |line| f.puts(line) unless line.include? matches }
       end
     end
 
