@@ -20,14 +20,16 @@ module Pod
       snapshots = configurator.ask_with_answers("Is your module view based", ["Yes", "No"]).to_sym
 
       case snapshots
-        when :yes
-
-          if keep_demo == :no
-              puts " Putting demo application back in, you cannot do view tests without a host application."
-              keep_demo = :yes
-          end
-
-          configurator.add_pod_to_podfile "Nimble-Snapshots"
+      when :yes
+        if keep_demo == :no
+            puts " Putting demo application back in, you cannot do view tests without a host application."
+            keep_demo = :yes
+        end
+        configurator.add_pod_to_podfile "Nimble-Snapshots"
+      else 
+        text = File.read("NAME.podspec")
+        text.gsub!("test_spec.requires_app_host = true", "")
+        File.open("NAME.podspec", "w") { |file| file.puts text }    
       end
 
       Pod::ProjectManipulator.new({
