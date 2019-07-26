@@ -11,6 +11,13 @@ module Pod
       @configurator = options.fetch(:configurator)
     end
 
+    def remove_line_from_podspec!(matches)
+      lines = File.readlines("NAME.podspec")
+      File.open(filename, "w") do |f|
+        lines.each { |line| f.puts(line) unless line.include? matches) }
+      end
+    end
+
     def perform
       configurator.add_pod_to_podfile "Quick', '~> 2.0"
       configurator.add_pod_to_podfile "Nimble', '~> 8.0"
@@ -28,7 +35,8 @@ module Pod
         configurator.add_pod_to_podfile "Nimble-Snapshots"
       else 
         text = File.read("NAME.podspec")
-        text.gsub!("test_spec.requires_app_host = true", "")
+        remove_line_from_podspec "test_spec.requires_app_host = true"
+        remove_line_from_podspec "test_spec.dependency 'Nimble-Snapshots'"
         File.open("NAME.podspec", "w") { |file| file.puts text }    
       end
 
