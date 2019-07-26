@@ -35,8 +35,8 @@ module Pod
         configurator.add_pod_to_podfile "Nimble-Snapshots"
       else 
         text = File.read("NAME.podspec")
-        remove_line_from_podspec "test_spec.requires_app_host = true"
-        remove_line_from_podspec "test_spec.dependency 'Nimble-Snapshots'"
+        remove_line_from_podspec! "test_spec.requires_app_host = true"
+        remove_line_from_podspec! "test_spec.dependency 'Nimble-Snapshots'"
         File.open("NAME.podspec", "w") { |file| file.puts text }    
       end
 
