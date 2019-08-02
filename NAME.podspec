@@ -6,7 +6,7 @@ Pod::Spec.new do |s|
   s.author           = { '${USER_NAME}' => '${USER_EMAIL}' }
   s.source           = { :git => 'https://github.com/Workable/workable-ios.git', :tag => s.version.to_s }
 
-  s.ios.deployment_target = '10.0'
+  s.ios.deployment_target = '11.0'
 
   test_sources = '${POD_NAME}/Tests/**/*'
 
@@ -18,7 +18,7 @@ Pod::Spec.new do |s|
   }
 
   s.test_spec 'Tests' do |test_spec|
-    test_spec.ios.deployment_target = '10.0'
+    test_spec.ios.deployment_target = '11.0'
     test_spec.source_files = test_sources
     test_spec.requires_app_host = true
     test_spec.dependency 'Quick'
