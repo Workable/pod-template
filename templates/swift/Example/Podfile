@@ -1,5 +1,8 @@
 use_frameworks!
 platform :ios, '11.0'
+install! 'cocoapods', 
+        :disable_input_output_paths => true, 
+        :generate_multiple_pod_projects => true
 
 target '${POD_NAME}_Example' do
   pod '${POD_NAME}', :path => '../', :testspecs => ['Tests'] 
