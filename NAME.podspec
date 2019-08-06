@@ -19,7 +19,8 @@ Pod::Spec.new do |s|
     :execution_position => :before_compile
   }
 
-  s.script_phase = {}
+  s.script_phase = nil
+  s.dependency 'R.swift'
   
   s.test_spec 'Tests' do |test_spec|
     test_spec.ios.deployment_target = '11.0'

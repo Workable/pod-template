@@ -79,6 +79,7 @@ module Pod
       delete_git_repo
       delete_meta_files
       run_pod_install
+      move_rswift
 
       @message_bank.farewell_message
     end
@@ -92,6 +93,16 @@ module Pod
       Dir.chdir("Example") do
         system "pod install"
       end
+    end
+
+    # Replace default rswift binary with one that works with CocoaPods Modules
+    def move_rswift
+      target_rswift_dir = 'Example/Pods/R.swift/rswift'
+      if File.exist? target_rswift_dir
+        File.delete(target_rswift_dir) if File.exist?(target_rswift_dir)
+        FileUtils.mv 'rswift', target_rswift_dir 
+      end
+      File.delete('rswift') if File.exist?('rswift')
     end
 
     def clean_template_files

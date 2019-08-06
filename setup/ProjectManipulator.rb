@@ -71,7 +71,7 @@ module Pod
       # Replace the Podfile with a simpler one with only one target
       podfile_path = project_folder + "/Podfile"
       podfile_text = <<-RUBY
-platform :ios, '10.0'
+platform :ios, '11.0'
 use_frameworks!
 target '#{test_target.name}' do
   pod '#{@configurator.pod_name}', :path => '../', :testspecs => ['Tests'] 

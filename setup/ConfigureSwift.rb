@@ -34,10 +34,11 @@ module Pod
             keep_demo = :yes
         end
         configurator.add_pod_to_podfile "Nimble-Snapshots"
-        remove_line_from_podspec! "s.script_phase = {}"
+        remove_line_from_podspec! "s.script_phase = nil"
       else 
         remove_line_from_podspec! "test_spec.requires_app_host = true"
         remove_line_from_podspec! "test_spec.dependency 'Nimble-Snapshots'"
+        remove_line_from_podspec! "s.dependency 'R.swift'"
       end
 
       Pod::ProjectManipulator.new({
