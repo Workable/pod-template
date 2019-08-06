@@ -34,6 +34,7 @@ module Pod
             keep_demo = :yes
         end
         configurator.add_pod_to_podfile "Nimble-Snapshots"
+        remove_line_from_podspec! "s.script_phase = {}"
       else 
         remove_line_from_podspec! "test_spec.requires_app_host = true"
         remove_line_from_podspec! "test_spec.dependency 'Nimble-Snapshots'"
