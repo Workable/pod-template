@@ -52,13 +52,13 @@ module Pod
 
       # There has to be a single file in the Classes dir
       # or a framework won't be created
-      `touch Pod/Main/Sources/ReplaceMe.swift`
-      `touch Pod/Main/ignore.file`
+      `touch Pod/Sources/Sources/ReplaceMe.swift`
+      `touch Pod/Sources/ignore.file`
       
       `touch Pod/Tests/Test\\ Sources/Tests.swift`
       `touch Pod/Tests/ignore.file`
 
-      `touch Pod/Assets/ignore.file`
+      `touch Pod/Resources/ignore.file`
 
       # The Podspec should be 8.0 instead of 7.0
       text = File.read("NAME.podspec")
