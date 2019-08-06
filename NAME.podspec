@@ -9,7 +9,7 @@ Pod::Spec.new do |s|
   s.ios.deployment_target = '11.0'
   test_sources = '${POD_NAME}/Tests/**/*'
   s.source_files = '${POD_NAME}/Sources/**/*'
-  s.resources = ['${POD_NAME}/**/*.{xib,storyboard,xcassets,json,png,jpg,jpeg}']
+  s.resources = ['${POD_NAME}/Resources/**/*.{xib,storyboard,xcassets,json,png,jpg,jpeg}']
   
   s.script_phase = {
     :name => 'R Swift',
