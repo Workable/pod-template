@@ -6,6 +6,7 @@ Pod::Spec.new do |s|
   s.author           = { '${USER_NAME}' => '${USER_EMAIL}' }
   s.source           = { :git => 'https://github.com/Workable/workable-ios.git', :tag => s.version.to_s }
 
+  s.static_framework = true
   s.ios.deployment_target = '11.0'
   test_sources = '${POD_NAME}/Tests/**/*'
   s.source_files = '${POD_NAME}/Sources/**/*'
