@@ -29,10 +29,10 @@ module Pod
 
       case snapshots
       when :yes
-        if keep_demo == :no
-            puts " Putting demo application back in, you cannot do view tests without a host application."
-            keep_demo = :yes
-        end
+        # if keep_demo == :no
+        #     puts " Putting demo application back in, you cannot do view tests without a host application."
+        #     keep_demo = :yes
+        # end
         configurator.add_pod_to_podfile "Nimble-Snapshots"
         remove_line_from_podspec! "s.script_phase = nil"
       else 
