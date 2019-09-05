@@ -24,6 +24,7 @@ module Pod
       configurator.add_pod_to_podfile "Nimble', '~> 8.0"
       configurator.set_test_framework "quick", "swift", "swift"
 
+      is_statically_linked = configurator.ask_with_answers("Would you like to link you module statically", ["Yes", "No"]).to_sym
       keep_demo = configurator.ask_with_answers("Would you like to include a demo application with your module", ["Yes", "No"]).to_sym
       snapshots = configurator.ask_with_answers("Is your module view based", ["Yes", "No"]).to_sym
 
@@ -40,6 +41,13 @@ module Pod
         remove_line_from_podspec! "test_spec.dependency 'Nimble-Snapshots'"
         remove_line_from_podspec! "s.dependency 'R.swift'"
       end
+
+      case is_statically_linked
+      when :no
+        remove_line_from_podspec! "s.static_framework = true"        
+      else
+      end
+      
 
       Pod::ProjectManipulator.new({
         :configurator => @configurator,
